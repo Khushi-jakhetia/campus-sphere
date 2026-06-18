@@ -1,6 +1,5 @@
 import prisma from "@/lib/prisma";
 import BigCalendar from "./BigCalender";
-import { adjustScheduleToCurrentWeek } from "@/lib/utils";
 
 const BigCalendarContainer = async ({
   type,
@@ -17,17 +16,54 @@ const BigCalendarContainer = async ({
     },
   });
 
-  const data = dataRes.map((lesson) => ({
-    title: lesson.name,
-    start: lesson.startTime,
-    end: lesson.endTime,
-  }));
+  const data = dataRes.map((lesson) => {
+    const today = new Date();
 
-  const schedule = adjustScheduleToCurrentWeek(data);
+    const dayMap: Record<string, number> = {
+      MONDAY: 1,
+      TUESDAY: 2,
+      WEDNESDAY: 3,
+      THURSDAY: 4,
+      FRIDAY: 5,
+    };
+
+    const monday = new Date(today);
+    monday.setDate(
+      today.getDate() - (today.getDay() === 0 ? 6 : today.getDay() - 1)
+    );
+
+    const lessonDate = new Date(monday);
+    lessonDate.setDate(
+      monday.getDate() + (dayMap[lesson.day] - 1)
+    );
+
+    lessonDate.setHours(
+      lesson.startTime.getHours(),
+      lesson.startTime.getMinutes(),
+      0,
+      0
+    );
+
+    const endDate = new Date(lessonDate);
+    endDate.setHours(
+      lesson.endTime.getHours(),
+      lesson.endTime.getMinutes(),
+      0,
+      0
+    );
+
+    return {
+      title: lesson.name,
+      start: lessonDate,
+      end: endDate,
+    };
+  });
+
+  console.log("CALENDAR DATA =", data);
 
   return (
-    <div className="">
-      <BigCalendar data={schedule} />
+    <div className="h-full">
+      <BigCalendar data={data} />
     </div>
   );
 };

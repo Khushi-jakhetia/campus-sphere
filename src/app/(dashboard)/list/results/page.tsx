@@ -48,12 +48,12 @@ const columns = [
     className: "hidden md:table-cell",
   },
   {
-    header: "Teacher",
+    header: "Faculty",
     accessor: "teacher",
     className: "hidden md:table-cell",
   },
   {
-    header: "Class",
+    header: "Department",
     accessor: "class",
     className: "hidden md:table-cell",
   },

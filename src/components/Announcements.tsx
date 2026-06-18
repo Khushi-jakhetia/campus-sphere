@@ -12,7 +12,7 @@ const Announcements = async () => {
   };
 
   const data = await prisma.announcement.findMany({
-    take: 3,
+    take: 5,
     orderBy: { date: "desc" },
     where: {
       ...(role !== "admin" && {
@@ -25,43 +25,67 @@ const Announcements = async () => {
   });
 
   return (
-    <div className="bg-white p-4 rounded-md">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">Announcements</h1>
-        <span className="text-xs text-gray-400">View All</span>
+    <div className="bg-white rounded-xl shadow-sm p-5">
+      <div className="flex items-center justify-between mb-5">
+        <div>
+          <h1 className="text-xl font-bold text-gray-800">
+            📢 Latest Announcements
+          </h1>
+          <p className="text-sm text-gray-500">
+            Important updates and notices
+          </p>
+        </div>
+
+        <button className="text-sm text-blue-600 font-medium hover:text-blue-800">
+          View All
+        </button>
       </div>
-      <div className="flex flex-col gap-4 mt-4">
-        {data[0] && (
-          <div className="bg-lamaSkyLight rounded-md p-4">
-            <div className="flex items-center justify-between">
-              <h2 className="font-medium">{data[0].title}</h2>
-              <span className="text-xs text-gray-400 bg-white rounded-md px-1 py-1">
-                {new Intl.DateTimeFormat("en-GB").format(data[0].date)}
-              </span>
+
+      <div className="flex flex-col gap-4">
+        {data.map((item, index) => (
+          <div
+            key={item.id}
+            className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-all duration-200"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span
+                    className={`text-xs px-2 py-1 rounded-full font-medium ${
+                      index === 0
+                        ? "bg-red-100 text-red-600"
+                        : index === 1
+                        ? "bg-yellow-100 text-yellow-700"
+                        : "bg-blue-100 text-blue-600"
+                    }`}
+                  >
+                    {index === 0
+                      ? "URGENT"
+                      : index === 1
+                      ? "IMPORTANT"
+                      : "NEW"}
+                  </span>
+
+                  <span className="text-xs text-gray-400">
+                    {new Intl.DateTimeFormat("en-GB").format(item.date)}
+                  </span>
+                </div>
+
+                <h2 className="font-semibold text-gray-800">
+                  {item.title}
+                </h2>
+
+                <p className="text-sm text-gray-600 mt-2">
+                  {item.description}
+                </p>
+              </div>
             </div>
-            <p className="text-sm text-gray-400 mt-1">{data[0].description}</p>
           </div>
-        )}
-        {data[1] && (
-          <div className="bg-lamaPurpleLight rounded-md p-4">
-            <div className="flex items-center justify-between">
-              <h2 className="font-medium">{data[1].title}</h2>
-              <span className="text-xs text-gray-400 bg-white rounded-md px-1 py-1">
-                {new Intl.DateTimeFormat("en-GB").format(data[1].date)}
-              </span>
-            </div>
-            <p className="text-sm text-gray-400 mt-1">{data[1].description}</p>
-          </div>
-        )}
-        {data[2] && (
-          <div className="bg-lamaYellowLight rounded-md p-4">
-            <div className="flex items-center justify-between">
-              <h2 className="font-medium">{data[2].title}</h2>
-              <span className="text-xs text-gray-400 bg-white rounded-md px-1 py-1">
-                {new Intl.DateTimeFormat("en-GB").format(data[2].date)}
-              </span>
-            </div>
-            <p className="text-sm text-gray-400 mt-1">{data[2].description}</p>
+        ))}
+
+        {data.length === 0 && (
+          <div className="text-center py-8 text-gray-400">
+            No announcements available.
           </div>
         )}
       </div>

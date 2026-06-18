@@ -24,12 +24,21 @@ async function main() {
       },
     });
   }
+department: "Computer Science"
 
+  const departments = [
+  "Computer Science",
+  "Electronics & Communication",
+  "Mechanical Engineering",
+  "Civil Engineering",
+  "Electrical Engineering",
+  "Artificial Intelligence",
+];
   // CLASS
   for (let i = 1; i <= 6; i++) {
     await prisma.class.create({
       data: {
-        name: `${i}A`, 
+        name: departments[i - 1],
         gradeId: i, 
         capacity: Math.floor(Math.random() * (20 - 15 + 1)) + 15,
       },
@@ -38,62 +47,132 @@ async function main() {
 
   // SUBJECT
   const subjectData = [
-    { name: "Mathematics" },
-    { name: "Science" },
-    { name: "English" },
-    { name: "History" },
-    { name: "Geography" },
-    { name: "Physics" },
-    { name: "Chemistry" },
-    { name: "Biology" },
-    { name: "Computer Science" },
-    { name: "Art" },
-  ];
+  { name: "Data Structures & Algorithms" },
+  { name: "Database Management Systems" },
+  { name: "Operating Systems" },
+  { name: "Computer Networks" },
+  { name: "Machine Learning" },
+  { name: "Digital Signal Processing" },
+  { name: "Microprocessors" },
+  { name: "VLSI Design" },
+  { name: "Software Engineering" },
+  { name: "Communication Systems" },
+];
 
   for (const subject of subjectData) {
     await prisma.subject.create({ data: subject });
   }
 
   // TEACHER
+  const facultyNames = [
+  ["Ananya", "Sharma"],
+  ["Rajesh", "Verma"],
+  ["Priya", "Nair"],
+  ["Amit", "Kulkarni"],
+  ["Neha", "Gupta"],
+  ["Vivek", "Singh"],
+  ["Rohit", "Mehta"],
+  ["Sneha", "Iyer"],
+  ["Arjun", "Patel"],
+  ["Kavita", "Joshi"],
+  ["Rahul", "Mishra"],
+  ["Pooja", "Agarwal"],
+  ["Karan", "Malhotra"],
+  ["Deepika", "Rao"],
+  ["Siddharth", "Jain"],
+];
+const facultyData = [
+  { subjectId: 1, classId: 1 },
+  { subjectId: 2, classId: 1 },
+  { subjectId: 3, classId: 1 },
+  { subjectId: 6, classId: 2 },
+  { subjectId: 7, classId: 2 },
+  { subjectId: 8, classId: 2 },
+  { subjectId: 5, classId: 6 },
+  { subjectId: 10, classId: 1 },
+  { subjectId: 9, classId: 2 },
+  { subjectId: 1, classId: 5 },
+  { subjectId: 2, classId: 6 },
+  { subjectId: 3, classId: 1 },
+  { subjectId: 4, classId: 2 },
+  { subjectId: 5, classId: 6 },
+  { subjectId: 6, classId: 3 },
+];
   for (let i = 1; i <= 15; i++) {
+    const faculty = facultyData[i - 1];
+    console.log(
+  facultyNames[i - 1][0],
+  faculty.subjectId,
+  faculty.classId
+);
     await prisma.teacher.create({
       data: {
-        id: `teacher${i}`, // Unique ID for the teacher
-        username: `teacher${i}`,
-        name: `TName${i}`,
-        surname: `TSurname${i}`,
+        id: `FAC${String(i).padStart(3, "0")}`,
+        username: `fac${i}`,
+        name: facultyNames[i - 1][0],
+        surname: facultyNames[i - 1][1],
         email: `teacher${i}@example.com`,
         phone: `123-456-789${i}`,
         address: `Address${i}`,
         bloodType: "A+",
         sex: i % 2 === 0 ? UserSex.MALE : UserSex.FEMALE,
-        subjects: { connect: [{ id: (i % 10) + 1 }] }, 
-        classes: { connect: [{ id: (i % 6) + 1 }] }, 
+        subjects: { connect: [{ id: faculty.subjectId }] },
+        classes: { connect: [{ id: faculty.classId }] }, 
         birthday: new Date(new Date().setFullYear(new Date().getFullYear() - 30)),
+        department: departments[(i - 1) % departments.length],
       },
     });
   }
 
   // LESSON
-  for (let i = 1; i <= 30; i++) {
-    await prisma.lesson.create({
-      data: {
-        name: `Lesson${i}`, 
-        day: Day[
-          Object.keys(Day)[
-            Math.floor(Math.random() * Object.keys(Day).length)
-          ] as keyof typeof Day
-        ], 
-        startTime: new Date(new Date().setHours(new Date().getHours() + 1)), 
-        endTime: new Date(new Date().setHours(new Date().getHours() + 3)), 
-        subjectId: (i % 10) + 1, 
-        classId: (i % 6) + 1, 
-        teacherId: `teacher${(i % 15) + 1}`, 
-      },
-    });
-  }
+  const slots = [
+  { start: 9, end: 10 },
+  { start: 10, end: 11 },
+  { start: 11, end: 12 },
+  { start: 14, end: 15 },
+  { start: 15, end: 16 },
+];
+const subjects = [
+  "Data Structures",
+  "DBMS",
+  "Operating Systems",
+  "Computer Networks",
+  "Machine Learning",
+  "Artificial Intelligence",
+  "Compiler Design",
+  "Software Engineering",
+];
 
-  // PARENT
+
+
+for (let i = 1; i <= 30; i++) {
+  const slot = slots[i % slots.length];
+
+  await prisma.lesson.create({
+    data: {
+      name: subjects[i % subjects.length],
+      day: Day[
+        Object.keys(Day)[
+          Math.floor(Math.random() * Object.keys(Day).length)
+        ] as keyof typeof Day
+      ],
+
+      startTime: new Date(
+        new Date().setHours(slot.start, 0, 0, 0)
+      ),
+
+      endTime: new Date(
+        new Date().setHours(slot.end, 0, 0, 0)
+      ),
+
+      subjectId: (i % 10) + 1,
+      classId: (i % 6) + 1,
+      teacherId: `FAC${String((i % 15) + 1).padStart(3, "0")}`,
+    },
+  });
+}
+
+  // parent
   for (let i = 1; i <= 25; i++) {
     await prisma.parent.create({
       data: {
@@ -177,10 +256,17 @@ async function main() {
   }
 
   // EVENT
+  const events = [
+  "Placement Drive",
+  "Hackathon 2026",
+  "Industry Connect Session",
+  "Research Symposium",
+  "Alumni Meet",
+];
   for (let i = 1; i <= 5; i++) {
     await prisma.event.create({
       data: {
-        title: `Event ${i}`, 
+        title: events[i - 1], 
         description: `Description for Event ${i}`, 
         startTime: new Date(new Date().setHours(new Date().getHours() + 1)), 
         endTime: new Date(new Date().setHours(new Date().getHours() + 2)), 
@@ -190,16 +276,44 @@ async function main() {
   }
 
   // ANNOUNCEMENT
+  
+const announcements = [
+  {
+    title: "Semester Registration Open",
+    description:
+      "Students must complete semester registration before July 10."
+  },
+  {
+    title: "Placement Applications Started",
+    description:
+      "Eligible students can apply through the placement portal."
+  },
+  {
+    title: "Mid Semester Schedule Released",
+    description:
+      "Mid-semester examination timetable has been published."
+  },
+  {
+    title: "Internship Fair Registration",
+    description:
+      "Register now for the annual internship and career fair."
+  },
+  {
+    title: "Research Grant Applications Open",
+    description:
+      "Final year students can apply for innovation grants."
+  },
+];
   for (let i = 1; i <= 5; i++) {
-    await prisma.announcement.create({
-      data: {
-        title: `Announcement ${i}`, 
-        description: `Description for Announcement ${i}`, 
-        date: new Date(), 
-        classId: (i % 5) + 1, 
-      },
-    });
-  }
+  await prisma.announcement.create({
+    data: {
+      title: announcements[i - 1].title,
+      description: announcements[i - 1].description,
+      date: new Date(),
+      classId: null,
+    },
+  });
+}
 
   console.log("Seeding completed successfully.");
 }

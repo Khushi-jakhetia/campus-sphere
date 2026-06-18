@@ -4,14 +4,14 @@ import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
-import { Parent, Prisma, Student } from "@prisma/client";
+import { parent, Prisma, Student } from "@prisma/client";
 import Image from "next/image";
 
 import { auth } from "@clerk/nextjs/server";
 
-type ParentList = Parent & { students: Student[] };
+type parentList = parent & { students: Student[] };
 
-const ParentListPage = async ({
+const parentListPage = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | undefined };
@@ -51,7 +51,7 @@ const columns = [
     : []),
 ];
 
-const renderRow = (item: ParentList) => (
+const renderRow = (item: parentList) => (
   <tr
     key={item.id}
     className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
@@ -86,7 +86,7 @@ const renderRow = (item: ParentList) => (
 
   // URL PARAMS CONDITION
 
-  const query: Prisma.ParentWhereInput = {};
+  const query: Prisma.parentWhereInput = {};
 
   if (queryParams) {
     for (const [key, value] of Object.entries(queryParams)) {
@@ -118,7 +118,7 @@ const renderRow = (item: ParentList) => (
     <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
       {/* TOP */}
       <div className="flex items-center justify-between">
-        <h1 className="hidden md:block text-lg font-semibold">All Parents</h1>
+        <h1 className="hidden md:block text-lg font-semibold">All parents</h1>
         <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
           <TableSearch />
           <div className="flex items-center gap-4 self-end">
@@ -140,4 +140,4 @@ const renderRow = (item: ParentList) => (
   );
 };
 
-export default ParentListPage;
+export default parentListPage;

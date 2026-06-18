@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 
 
-const ParentPage = async () => {
+const parentPage = async () => {
   const { userId } = auth();
   const currentUserId = userId;
   
@@ -37,4 +37,4 @@ const ParentPage = async () => {
   );
 };
 
-export default ParentPage;
+export default parentPage;

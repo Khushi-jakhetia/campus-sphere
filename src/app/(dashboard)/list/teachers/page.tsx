@@ -24,7 +24,7 @@ const TeacherListPage = async ({
       accessor: "info",
     },
     {
-      header: "Teacher ID",
+      header: "Faculty ID",
       accessor: "teacherId",
       className: "hidden md:table-cell",
     },
@@ -34,7 +34,7 @@ const TeacherListPage = async ({
       className: "hidden md:table-cell",
     },
     {
-      header: "Classes",
+      header: "Departments",
       accessor: "classes",
       className: "hidden md:table-cell",
     },
@@ -81,8 +81,8 @@ const TeacherListPage = async ({
         {item.subjects.map((subject) => subject.name).join(",")}
       </td>
       <td className="hidden md:table-cell">
-        {item.classes.map((classItem) => classItem.name).join(",")}
-      </td>
+  {item.department}
+</td>
       <td className="hidden md:table-cell">{item.phone}</td>
       <td className="hidden md:table-cell">{item.address}</td>
       <td>
@@ -143,12 +143,18 @@ const TeacherListPage = async ({
     }),
     prisma.teacher.count({ where: query }),
   ]);
+  console.log(
+  data.map((t) => ({
+    name: t.name,
+    classes: t.classes,
+  }))
+);
 
   return (
     <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
       {/* TOP */}
       <div className="flex items-center justify-between">
-        <h1 className="hidden md:block text-lg font-semibold">All Teachers</h1>
+        <h1 className="hidden md:block text-lg font-semibold">All Faculties</h1>
         <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
           <TableSearch />
           <div className="flex items-center gap-4 self-end">

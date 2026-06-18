@@ -29,15 +29,15 @@ const currentUserId = userId;
 
 const columns = [
   {
-    header: "Subject Name",
+    header: "Course Name",
     accessor: "name",
   },
   {
-    header: "Class",
+    header: "Department",
     accessor: "class",
   },
   {
-    header: "Teacher",
+    header: "Faculty in-charge",
     accessor: "teacher",
     className: "hidden md:table-cell",
   },

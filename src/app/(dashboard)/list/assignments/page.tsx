@@ -33,11 +33,11 @@ const AssignmentListPage = async ({
       accessor: "name",
     },
     {
-      header: "Class",
+      header: "Department",
       accessor: "class",
     },
     {
-      header: "Teacher",
+      header: "Faculty",
       accessor: "teacher",
       className: "hidden md:table-cell",
     },
