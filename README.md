@@ -1,7 +1,7 @@
 # 🎓 CampusSphere – University Management System
 
 <p align="center">
-  <img src="creenshots/login.png" alt="CampusSphere Dashboard" width="85%" />
+  <img src="screenshots/login.png" alt="CampusSphere Dashboard" width="85%" />
 </p>
 
 <p align="center">
