@@ -57,7 +57,7 @@ const TeacherPage = () => {
           
           <div className="bg-white rounded-xl p-5 shadow-sm">
             <h2 className="font-semibold text-lg mb-4">
-              {"Today's Classes"}
+              Today&apos;s Classes
             </h2>
 
             <div className="space-y-3">
