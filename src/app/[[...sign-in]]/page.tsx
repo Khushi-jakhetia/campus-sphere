@@ -131,6 +131,47 @@ const LoginPage = () => {
               className="bg-blue-600 hover:bg-blue-700 transition-all text-white font-semibold rounded-xl py-3 mt-2"
             >
               Sign In
+              <div className="mt-5 bg-blue-50 border border-blue-200 rounded-xl p-4">
+            <h3 className="font-semibold text-blue-800 mb-3">
+              🔑 Demo Credentials
+            </h3>
+
+            <div className="space-y-3 text-sm">
+              <div>
+                <p className="font-medium text-gray-800">👨‍💼 Admin</p>
+                <p className="text-gray-600">
+                  Username: <span className="font-medium">khushijakhetia1703@gmail.com</span>
+                </p>
+                <p className="text-gray-600">
+                  Password: <span className="font-medium">jakhetia@123</span>
+                </p>
+              </div>
+
+              <div className="border-t pt-3">
+                <p className="font-medium text-gray-800">👨‍🏫 Faculty</p>
+                <p className="text-gray-600">
+                  Username: <span className="font-medium">teacher@gmail.com</span>
+                </p>
+                <p className="text-gray-600">
+                  Password: <span className="font-medium">Teacher@1703</span>
+                </p>
+              </div>
+
+              <div className="border-t pt-3">
+                <p className="font-medium text-gray-800">👨‍🎓 Student</p>
+                <p className="text-gray-600">
+                  Username: <span className="font-medium">student@gmail.com</span>
+                </p>
+                <p className="text-gray-600">
+                  Password: <span className="font-medium">Student@1703</span>
+                </p>
+              </div>
+            </div>
+
+            <p className="text-xs text-gray-500 mt-4">
+              Note: In a real university environment, credentials are issued by the administration and self-registration is not available.
+            </p>
+          </div>
             </SignIn.Action>
 
             <p className="text-center text-xs text-gray-400 mt-2">

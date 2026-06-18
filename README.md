@@ -123,7 +123,28 @@ DATABASE_URL=your_database_url
 
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
 CLERK_SECRET_KEY=your_clerk_secret_key
+
+
 ```
+
+## 🔑 Demo Credentials
+
+### Admin
+
+Username: khushijakhetia1703@gmail.com  
+Password: jakhetia@123
+
+### Faculty
+
+Username: teacher@gmail.com  
+Password: Teacher@1703
+
+### Student
+
+Username: student@gmail.com  
+Password: Student@1703
+
+> Note: In a real university environment, credentials are issued by the administration. Self-registration is not available.
 
 ### Run Development Server
 
@@ -136,6 +157,12 @@ Visit:
 ```text
 http://localhost:3000
 ```
+
+---
+
+## 🌐 Live Demo
+
+🔗 https://campus-sphere-dun.vercel.app
 
 ---
 
