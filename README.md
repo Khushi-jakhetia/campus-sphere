@@ -104,7 +104,7 @@ The platform provides centralized access to academic schedules, assessments, att
 ### Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/CampusSphere.git
+git git clone https://github.com/Khushi-Jakhetia/campus-sphere.git
 cd CampusSphere
 ```
 
